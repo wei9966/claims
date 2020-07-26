@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Component
-@FeignClient(value = "insurance-car-insur")
+@FeignClient(value = "claims-car-insur")
 public interface CarInsurFeign {
 
     @RequestMapping("/carInsur/incloud/selectOne")

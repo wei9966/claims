@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dm.claims.dao.LoginDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.dm.claims.entity.LoginEntity" id="loginMap">
+        <result property="insuranceLoginId" column="insurance_login_id"/>
+        <result property="insuranceLoginUser" column="insurance_login_user"/>
+        <result property="insuranceLoginPassword" column="insurance_login_password"/>
+        <result property="roleId" column="role_id"/>
+        <result property="insuranceLoginPhone" column="insurance_login_phone"/>
+        <result property="insuranceLoginEmai" column="insurance_login_emai"/>
+    </resultMap>
+
+    <select id="isRepeatEmailOrPhoneOrName" resultMap="loginMap" >
+        select * from insurance_login where insurance_login_user=#{insuranceLoginUser}
+        or
+        insurance_login_phone=#{insuranceLoginPhone}
+        or
+        insurance_login_emai=#{insuranceLoginEmai}
+    </select>
+</mapper>
