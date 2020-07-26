@@ -1,8 +1,8 @@
 server:
-  port: 9000
+  port: 11000
 spring:
   application:
-    name: claims-form
+    name: claims-loss-assessment
   cloud:
     nacos:
       config:

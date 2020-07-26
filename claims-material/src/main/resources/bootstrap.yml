@@ -1,8 +1,8 @@
 server:
-  port: 9000
+  port: 12001
 spring:
   application:
-    name: claims-form
+    name: claims-material
   cloud:
     nacos:
       config:

@@ -1,24 +1,5 @@
 spring:
-  application:
-    name: claims-login-user
   cloud:
     nacos:
       discovery:
         server-addr: 47.100.79.206:8848
-  datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://47.100.79.206:3306/insurance?characterEncoding=UTF-8
-    username: root
-    password: rootroot
-server:
-  port: 12345
-mybatis-plus:
-  mapper-locations: classpath:mapper/insurance/*.xml
-  type-aliases-package: com.dm.claims.entity
-  global-config:
-      db-config:
-        id-type: auto
-logging:
-  level:
-    com.dm.claims.dao: debug

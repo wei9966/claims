@@ -16,6 +16,7 @@
         <module>claims-indemnity</module>
         <module>claims-commcon-api</module>
         <module>claims-user</module>
+        <module>claims-third-party</module>
     </modules>
     <name>Maven</name>
     <!-- FIXME change it to the project's website -->

@@ -1,15 +1,15 @@
 server:
-  port: 9000
+  port: 12345
 spring:
   application:
-    name: claims-form
+    name: claims-login-user
   cloud:
     nacos:
       config:
         server-addr: 47.100.79.206:8848
         file-extension: yaml
         extconfig:
-          - data-id: common.yml
+          - data-id: claims-user.yml
             group: DEFAULT_GROUP
             refresh: true
-        namespace: 013b2ae3-454f-4b62-b0b5-fb8722d46095
+        namespace: 9a794551-8df4-4d4b-8da6-176a23406803
