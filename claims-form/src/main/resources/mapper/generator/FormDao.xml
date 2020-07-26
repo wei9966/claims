@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dm.claims.dao.FormDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.dm.claims.entity.FormEntity" id="formMap">
+        <result property="claimFormId" column="claim_form_id"/>
+        <result property="claimFormRecorder" column="claim_form_recorder"/>
+        <result property="claimFormCause" column="claim_form_cause"/>
+        <result property="claimFormSite" column="claim_form_site"/>
+        <result property="insuranceInserIncludeId" column="insurance_inser_include_id"/>
+        <result property="claimFormPicture" column="claim_form_picture"/>
+        <result property="claimFormExploration" column="claim_form_exploration"/>
+        <result property="claimFormExplorationPhone" column="claim_form_exploration_phone"/>
+        <result property="lossAssessmentId" column="loss_assessment_id"/>
+        <result property="materialId" column="material_id"/>
+        <result property="indemnityId" column="indemnity_id"/>
+    </resultMap>
+
+    <insert id="insertForm" keyProperty="claimFormId" useGeneratedKeys="true">
+        insert  into claims.claims_form(claim_form_recorder,claim_form_cause,claim_form_site,insurance_inser_include_id,claim_form_picture,claim_form_exploration,claim_form_exploration_phone,loss_assessment_id,material_id,indemnity_id)
+        values (#{claimFormRecorder},
+        #{claimFormCause},
+        #{claimFormSite},
+        #{insuranceInserIncludeId},
+        #{claimFormPicture},
+        #{claimFormExploration},
+        #{claimFormExplorationPhone},
+        #{lossAssessmentId},
+        #{materialId},
+        #{indemnityId})
+    </insert>
+    <!--通过主键修改数据-->
+    <update id="updateForm">
+        update claims.claims_form
+        <set>
+            <if test="claimFormRecorder != null">
+                claim_form_recorder = #{claimFormRecorder},
+            </if>
+            <if test="claimFormCause != null">
+                claim_form_cause = #{claimFormCause},
+            </if>
+            <if test="claimFormSite != null">
+                claim_form_site = #{claimFormSite},
+            </if>
+            <if test="insuranceInserIncludeId != null">
+                claim_form_picture = #{insuranceInserIncludeId},
+            </if>
+            <if test="claimFormExploration != null">
+                claim_form_exploration = #{claimFormExploration},
+            </if>
+            <if test="claimFormExplorationPhone != null">
+                claim_form_exploration_phone = #{claimFormExplorationPhone},
+            </if>
+            <if test="lossAssessmentId != null and lossAssessmentId != ''">
+                loss_assessment_id = #{lossAssessmentId},
+            </if>
+            <if test="materialId != null and materialId != ''">
+                material_id = #{materialId},
+            </if>
+            <if test="indemnityId != null and indemnityId != ''">
+                indemnity_id = #{indemnityId},
+            </if>
+        </set>
+        where claim_form_id = #{claimFormId}
+    </update>
+</mapper>

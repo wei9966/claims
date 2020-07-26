@@ -1,0 +1,13 @@
+server:
+  port: 9000
+spring:
+  application:
+    name: claims-form
+#spring:
+#  cloud:
+#    nacos:
+#      config:
+#        server-addr: 47.100.79.206:8848
+#        file-extension: yaml
+#        group: DEV_GROUP
+#        namespace: 60ecdeb6-b0f5-4720-86c9-98256a1ac671

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dm.claims.dao.MaterialDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.dm.claims.entity.MaterialEntity" id="materialMap">
+        <result property="materialId" column="material_id"/>
+        <result property="materialBankCard" column="material_bank_card"/>
+        <result property="materialBankCardUser" column="material_bank_card_user"/>
+        <result property="insuredId" column="insured_id"/>
+    </resultMap>
+
+
+</mapper>
