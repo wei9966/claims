@@ -3,6 +3,7 @@ package com.dm.claims.dao;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dm.claims.entity.ClaimImg;
 import com.dm.claims.entity.FormEntity;
+import com.dm.claims.entity.ImgEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
@@ -67,4 +68,17 @@ public interface ClaimImgDao extends BaseMapper<ClaimImg> {
     int deleteById(Integer claimImgId);
 
     void insertListImgs(@Param("uri") String s,@Param("formId") Integer claimFormId);
+
+    /**
+     * 根据uri查询
+     * @param s uri地址
+     * @return
+     */
+    List<ImgEntity> queryByUri(@Param("uri") String s);
+
+    /**
+     * 根据formId删除图片
+     * @param i
+     */
+    void deleteByFormId(@Param("formId") int i);
 }

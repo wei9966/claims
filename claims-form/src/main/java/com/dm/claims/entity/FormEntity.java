@@ -56,7 +56,7 @@ public class FormEntity implements Serializable {
 	 */
 	private String claimFormExplorationPhone;
 	/**
-	 * 定损id
+	 * 用来判断是否受理了
 	 */
 	private Integer lossAssessmentId;
 	/**

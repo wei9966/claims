@@ -71,4 +71,15 @@
         insert into claims.claim_img(claim_form_id, claim_img_uri)
         values (#{formId}, #{uri})
     </insert>
+    <!--根据uri查询-->
+    <select id="queryByUri" resultMap="ClaimImgMap">
+        select
+          claim_img_id, claim_form_id, claim_img_uri
+        from claims.claim_img
+        where claim_img_uri = #{uri}
+    </select>
+    <!--根据formId删除-->
+    <delete id="deleteByFormId">
+        delete from claims.claim_img where claim_form_id = #{formId}
+    </delete>
 </mapper>

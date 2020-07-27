@@ -63,12 +63,14 @@ public class FormController {
             if (list.contains(formEntity.getClaimFormId())){
                 for (int j = 0; j < imgPage.getList().size(); j++) {
                     ImgEntity imgEntity= (ImgEntity) imgPage.getList().get(j);
-                    uriList.add(imgEntity);
+                    if (imgEntity.getClaimFormId()==formEntity.getClaimFormId()){
+                        uriList.add(imgEntity);
+                    }
                 }
             }
             formEntity.setClaimImgs(uriList);
         }
-        System.out.println("转换后的对象"+page);
+        System.out.println("转换后的对象"+page.getList());
         return R.ok().put("page", page);
     }
 
@@ -79,6 +81,16 @@ public class FormController {
     @RequestMapping("/info/{claimFormId}")
     public R info(@PathVariable("claimFormId") Integer claimFormId){
 		FormEntity form = formService.getById(claimFormId);
+        Map<String,Object> pa=new HashMap<>();
+        PageUtils imgPage = imgService.queryPage(pa);
+        List<String> uriImages=new ArrayList<>();
+        for (int i = 0; i < imgPage.getList().size(); i++) {
+            ImgEntity imgEntity= (ImgEntity) imgPage.getList().get(i);
+            if (imgEntity.getClaimFormId()==claimFormId){
+                uriImages.add(imgEntity.getClaimImgUri());
+            }
+        }
+        form.setClaimFormPictures(uriImages);
         return R.ok().put("form", form);
     }
 
@@ -106,8 +118,8 @@ public class FormController {
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Integer[] claimFormIds){
-		formService.removeByIds(Arrays.asList(claimFormIds));
-
+//		formService.removeByIds(Arrays.asList(claimFormIds));
+		formService.deleteByIds(Arrays.asList(claimFormIds));
         return R.ok();
     }
     @RequestMapping("/insertForm")
@@ -120,7 +132,6 @@ public class FormController {
         FormEntity formEntity= formService.insert(claimForm);
        return R.ok().put("form",formEntity).put("contract",userInfoByPhone);
     }
-
     @RequestMapping("/selectContract")
     public InsuranceInsurContract getContract(String phone){
         System.out.println("电话号码是"+phone);

@@ -5,6 +5,7 @@ import com.dm.claims.InsuranceClaimsForm;
 import com.dm.claims.entity.FormEntity;
 import com.dm.claims.pojo.PageUtils;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,5 +22,11 @@ public interface FormService extends IService<FormEntity> {
     FormEntity insert(FormEntity claimForm);
 
     FormEntity update(FormEntity claimForm);
+
+    /**
+     * 批量删除
+     * @param list
+     */
+    void deleteByIds(List<Integer> list);
 }
 
