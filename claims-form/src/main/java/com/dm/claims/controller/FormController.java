@@ -1,21 +1,18 @@
 package com.dm.claims.controller;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.dm.claims.InsuranceClaimsForm;
-import com.dm.claims.entity.FormEntity;
-import com.dm.claims.entity.InsuranceCarInsur;
-import com.dm.claims.entity.InsuranceInserInclude;
-import com.dm.claims.entity.InsuranceInsurContract;
+import com.dm.claims.entity.*;
 import com.dm.claims.feign.CarInsurFeign;
 import com.dm.claims.feign.FormFeign;
 import com.dm.claims.pojo.PageUtils;
 import com.dm.claims.pojo.R;
+import com.dm.claims.service.ImgService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,13 +39,36 @@ public class FormController {
     private FormFeign formFeign;
     @Autowired
     private CarInsurFeign carInsurFeign;
+    @Autowired
+    private ImgService imgService;
     /**
      * 列表
      */
     @RequestMapping("/list")
     public R list(@RequestParam Map<String, Object> params){
+        System.out.println("par"+params);
         PageUtils page = formService.queryPage(params);
-
+        System.out.println(page.getList());
+        Map<String,Object> pa=new HashMap<>();
+        PageUtils imgPage = imgService.queryPage(pa);
+        System.out.println(imgPage.getList());
+        List<Integer> list=new ArrayList<>();
+        for (int i = 0; i < imgPage.getList().size(); i++) {
+            ImgEntity imgEntity= (ImgEntity) imgPage.getList().get(i);
+            list.add(imgEntity.getClaimFormId());
+        }
+        for (int i = 0; i < page.getList().size(); i++) {
+            FormEntity formEntity= (FormEntity) page.getList().get(i);
+            List<ImgEntity> uriList=new ArrayList<>();
+            if (list.contains(formEntity.getClaimFormId())){
+                for (int j = 0; j < imgPage.getList().size(); j++) {
+                    ImgEntity imgEntity= (ImgEntity) imgPage.getList().get(j);
+                    uriList.add(imgEntity);
+                }
+            }
+            formEntity.setClaimImgs(uriList);
+        }
+        System.out.println("转换后的对象"+page);
         return R.ok().put("page", page);
     }
 
@@ -59,7 +79,6 @@ public class FormController {
     @RequestMapping("/info/{claimFormId}")
     public R info(@PathVariable("claimFormId") Integer claimFormId){
 		FormEntity form = formService.getById(claimFormId);
-
         return R.ok().put("form", form);
     }
 
@@ -68,8 +87,7 @@ public class FormController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody FormEntity form){
-		formService.save(form);
-
+//		formService.save(form);
         return R.ok();
     }
 
@@ -94,6 +112,7 @@ public class FormController {
     }
     @RequestMapping("/insertForm")
     public R insertForm(@RequestBody FormEntity claimForm){
+        System.out.println("保存的form"+claimForm+"\t"+claimForm.getClaimFormPicture());
         InsuranceInsurContract userInfoByPhone = formFeign.getUserInfoByPhone(claimForm.getClaimFormExplorationPhone());
         if (userInfoByPhone!=null){
             claimForm.setInsuranceInserIncludeId(userInfoByPhone.getIpId());

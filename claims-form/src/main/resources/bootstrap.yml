@@ -12,4 +12,3 @@ spring:
           - data-id: common.yml
             group: DEFAULT_GROUP
             refresh: true
-        namespace: 013b2ae3-454f-4b62-b0b5-fb8722d46095

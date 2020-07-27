@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Component
-@FeignClient(value = "claims-city")
+@FeignClient(value = "insurance-city")
 public interface FormFeign {
 
     @RequestMapping("/insuranceCity/insuranceUserInfo/infoByPhone")

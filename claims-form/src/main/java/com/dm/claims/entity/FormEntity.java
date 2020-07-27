@@ -1,10 +1,13 @@
 package com.dm.claims.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
 import lombok.Data;
 
 /**
@@ -64,5 +67,11 @@ public class FormEntity implements Serializable {
 	 * 赔款id
 	 */
 	private Integer indemnityId;
-
+    /**
+     * 所有图片
+     */
+    @TableField(exist = false)
+    private List<ImgEntity> claimImgs;
+    @TableField(exist = false)//字段不在数据库中
+    private List<String> claimFormPictures;
 }

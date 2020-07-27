@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dm.claims.dao.ClaimImgDao">
+
+    <resultMap type="com.dm.claims.entity.ClaimImg" id="ClaimImgMap">
+        <result property="claimImgId" column="claim_img_id" jdbcType="INTEGER"/>
+        <result property="claimFormId" column="claim_form_id" jdbcType="INTEGER"/>
+        <result property="claimImgUri" column="claim_img_uri" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="ClaimImgMap">
+        select
+          claim_img_id, claim_form_id, claim_img_uri
+        from claims.claim_img
+        where claim_img_id = #{claimImgId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="ClaimImgMap">
+        select
+          claim_img_id, claim_form_id, claim_img_uri
+        from claims.claim_img
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="ClaimImgMap">
+        select
+          claim_img_id, claim_form_id, claim_img_uri
+        from claims.claim_img
+        <where>
+            <if test="claimImgId != null">
+                and claim_img_id = #{claimImgId}
+            </if>
+            <if test="claimFormId != null">
+                and claim_form_id = #{claimFormId}
+            </if>
+            <if test="claimImgUri != null and claimImgUri != ''">
+                and claim_img_uri = #{claimImgUri}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="claimImgId" useGeneratedKeys="true">
+        insert into claims.claim_img(claim_form_id, claim_img_uri)
+        values (#{claimFormId}, #{claimImgUri})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update claims.claim_img
+        <set>
+            <if test="claimFormId != null">
+                claim_form_id = #{claimFormId},
+            </if>
+            <if test="claimImgUri != null and claimImgUri != ''">
+                claim_img_uri = #{claimImgUri},
+            </if>
+        </set>
+        where claim_img_id = #{claimImgId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from claims.claim_img where claim_img_id = #{claimImgId}
+    </delete>
+
+    <insert id="insertListImgs">
+        insert into claims.claim_img(claim_form_id, claim_img_uri)
+        values (#{formId}, #{uri})
+    </insert>
+</mapper>
